@@ -16,7 +16,7 @@
   <div class="menu-left">
     <div class="menu-header">
       <h1 class="menu-main-title">The Collector</h1>
-      <img src="../assets/logo_etoile.png">
+      <img src="../assets/logo.png">
     </div>
     <div class="menu-nav">
       <ul class="nav nav-pills">
@@ -61,7 +61,7 @@ export default {
   flex-direction: row;
 }
 .menu-profile {
-  background-image: url("@/assets/logo.jpg");
+  background-image: url("@/assets/pp/user_pic.jpg");
   background-size: 100% 100%;
   height: 20vh;
   width: 20vh;

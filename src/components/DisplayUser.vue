@@ -1,6 +1,6 @@
 <template>
   <div class="card" style="width: 18rem;">
-    <img :src="require('../assets/' + image + '.png')" class="card-img-top" :alt="alt">
+    <img :src="require('../assets/pp/' + image + '.png')" class="card-img-top" :alt="alt">
     <div class="card-body">
       <h5 class="card-title">{{name}}</h5>
       <p class="card-text"><img class="twitter-img" :src="require('../assets/twitter.png')"> @{{twitter}}</p>

@@ -17,8 +17,8 @@
 
         <div class="current">
           <h1>Current extensions: Chill reign and Zenith</h1>
-          <a><img src="../assets/logo-Crown-Zenith.png"></a>
-          <a><img src="../assets/logo-chilling-reign.png"></a>
+          <a><img src="../assets/logo_collection/logo-Crown-Zenith.png"></a>
+          <a><img src="../assets/logo_collection/logo-chilling-reign.png"></a>
         </div>
       </div>
       <div class="others">
@@ -36,7 +36,7 @@
           Explore the regions of each game to obtain your favorite Pokémon, train and fight with them in grand adventures.<br>
           Here are the games from which the available extensions on our website are inspired by:
         </p>
-        <a href="https://www.nintendo.com/sg/switch/sword_shield/index.html"><img class="game" src="../assets/swandsh.png"></a>
+        <a href="https://www.nintendo.com/sg/switch/sword_shield/index.html"><img class=img-responsive src="../assets/swandsh.png"></a>
       </div>
       <div class="end">
         <h2>Others:</h2>
@@ -60,19 +60,19 @@ export default {
   data () {
     return {
       images: [
-        {src: require('../assets/logo-astral-radiance.png'), alt: 'Image 1'},
-        {src: require('../assets/logo-battle-styles.png'), alt: 'Image 2'},
-        {src: require('../assets/logo-brilliant-stars.png'), alt: 'Image 3'},
-        {src: require('../assets/logo-celebrations.png'), alt: 'Image 4'},
-        {src: require('../assets/logo-champion-path.png'), alt: 'Image 5'},
-        {src: require('../assets/logo-darkness-ablaze.png'), alt: 'Image 6'},
-        {src: require('../assets/logo-evolving-skies.png'), alt: 'Image 7'},
-        {src: require('../assets/logo-fusion-strike.png'), alt: 'Image 8'},
-        {src: require('../assets/logo-lost-origin.png'), alt: 'Image 9'},
-        {src: require('../assets/logo-rebel-clash.png'), alt: 'Image 10'},
-        {src: require('../assets/logo-shining-fates.png'), alt: 'Image 11'},
-        {src: require('../assets/logo-silver-tempest.png'), alt: 'Image 12'},
-        {src: require('../assets/logo-vivid-voltage.png'), alt: 'Image 13'},
+        {src: require('../assets/logo_collection/logo-astral-radiance.png'), alt: 'Image 1'},
+        {src: require('../assets/logo_collection/logo-battle-styles.png'), alt: 'Image 2'},
+        {src: require('../assets/logo_collection/logo-brilliant-stars.png'), alt: 'Image 3'},
+        {src: require('../assets/logo_collection/logo-celebrations.png'), alt: 'Image 4'},
+        {src: require('../assets/logo_collection/logo-champion-path.png'), alt: 'Image 5'},
+        {src: require('../assets/logo_collection/logo-darkness-ablaze.png'), alt: 'Image 6'},
+        {src: require('../assets/logo_collection/logo-evolving-skies.png'), alt: 'Image 7'},
+        {src: require('../assets/logo_collection/logo-fusion-strike.png'), alt: 'Image 8'},
+        {src: require('../assets/logo_collection/logo-lost-origin.png'), alt: 'Image 9'},
+        {src: require('../assets/logo_collection/logo-rebel-clash.png'), alt: 'Image 10'},
+        {src: require('../assets/logo_collection/logo-shining-fates.png'), alt: 'Image 11'},
+        {src: require('../assets/logo_collection/logo-silver-tempest.png'), alt: 'Image 12'},
+        {src: require('../assets/logo_collection/logo-vivid-voltage.png'), alt: 'Image 13'},
       ],
       imgStyles: []
     }

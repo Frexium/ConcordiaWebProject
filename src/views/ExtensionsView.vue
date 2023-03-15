@@ -2,8 +2,8 @@
   <div class="co container">
     <MenuComponent index-active="2"></MenuComponent>
     <div class="extension-box">
-      <router-link to="/collection"><img class="extension-img" src="../assets/CZ_FR.png"></router-link>
-      <router-link to="/collection"><img class="extension-img" src="../assets/CRE_FR.png"></router-link>
+      <router-link to="/collection"><img class="extension-img" src="../assets/logo_collection/CZ_FR.png"></router-link>
+      <router-link to="/collection"><img class="extension-img" src="../assets/logo_collection/CRE_FR.png"></router-link>
 
     </div>
   </div>

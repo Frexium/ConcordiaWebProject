@@ -1,16 +1,16 @@
 <template>
   <div class="header-profile">
     <h3>The Collector</h3>
-    <img class="logo-img" src="../assets/logo_etoile.png">
+    <img class="logo-img" src="../assets/logo.png">
   </div>
   <div class="menu-container">
     <div class="profile">
       <div class="header-profile">
         <h3>The Collector</h3>
-        <img class="logo-img" src="../assets/logo_etoile.png">
+        <img class="logo-img" src="../assets/logo.png">
       </div>
       <div class="pp-menu">
-        <img class="pp-img" src="../assets/logo.jpg">
+        <img class="pp-img" src="../assets/user_pic.jpg">
         <h3>nkinesis</h3>
       </div>
       <div class="settings">
@@ -40,7 +40,7 @@ export default {
 .menu-container {
   height: 100%;
   width: 20%;
-  background-image: url("@/assets/logo.jpg");
+  background-image: url("@/assets/user_pic.jpg");
   background-size: 100% 100%;
   border-radius: 40px;
 }
