@@ -1,5 +1,16 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="co container">
+    <MenuComponent index-active=4></MenuComponent>
+    <DisplayerComponent :numbers=230></DisplayerComponent>
   </div>
 </template>
+
+<script>
+
+import MenuComponent from "@/components/Menu.vue";
+
+export default {
+  name: "CollectionView",
+  components: {MenuComponent}
+}
+</script>

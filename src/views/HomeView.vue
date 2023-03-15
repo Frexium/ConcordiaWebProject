@@ -123,8 +123,6 @@ img {
   width: 1100px;
   height: 700px;
 }
-.top{
-}
 .others{
   background-color: white;
 }

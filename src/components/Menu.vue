@@ -32,6 +32,10 @@
           <router-link v-if="indexActive == 3" class="nav-link active" to="/network">Network</router-link>
           <router-link v-else class="nav-link" to="/network">Network</router-link>
         </li>
+        <li class="nav-item">
+          <router-link v-if="indexActive == 4" class="nav-link active" to="/about">About Us</router-link>
+          <router-link v-else class="nav-link" to="/about">About Us</router-link>
+        </li>
       </ul>
     </div>
   </div>
