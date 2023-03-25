@@ -6,22 +6,6 @@
       </div>
       <input type="text" class="form-control" placeholder="type a name" aria-label="Name" aria-describedby="basic-addon1">
       <div class="input-group-prepend displayer-scrollable">
-<!--        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--          {{ typeName }}</button>-->
-<!--        <div class="dropdown-menu">-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/grasstype.png"> Grass</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/firetype.png"> Fire</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/watertype.png"> Water</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/electrictype.png"> Electric</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/psy.png"> Psychic</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/fighting.png"> Fighting</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/dark.png"> Dark</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/iron.png"> Iron</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/dragon.png"> Dragon</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/normal.png"> Normal</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/normal.png"> Trainer</a>-->
-<!--          <a class="dropdown-item"><img class="displayer-type-icon" src="../assets/type/normal.png"> Energy</a>-->
-<!--        </div>-->
 
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ typeName }}</button>
@@ -39,70 +23,46 @@
                   <button class="dropdown-item" type="button" @click="typeName='Trainer'"><img class="displayer-type-icon" src="../assets/type/normal.png"> Trainer</button>
                   <button class="dropdown-item" type="button" @click="typeName='Energy'"><img class="displayer-type-icon" src="../assets/type/normal.png"> Energy</button>
                 </div>
-
-<!--        <select id="mySelect">-->
-<!--          <option value="Grass"><img class="displayer-type-icon" src="../assets/type/grasstype.png"> Grass</option>-->
-<!--          <option value="Grass"><img class="displayer-type-icon" src="../assets/type/grasstype.png"> Grass</option>-->
-<!--          <option value="Fire"><img class="displayer-type-icon" src="../assets/type/firetype.png"> Fire</option>-->
-<!--          <option value="Water"><img class="displayer-type-icon" src="../assets/type/watertype.png"> Water</option>-->
-<!--          <option value="Electric"><img class="displayer-type-icon" src="../assets/type/electrictype.png"> Electric</option>-->
-<!--          <option value="Psychic"><img class="displayer-type-icon" src="../assets/type/psy.png"> Psychic</option>-->
-<!--          <option value="Fighting"><img class="displayer-type-icon" src="../assets/type/fighting.png"> Fighting</option>-->
-<!--          <option value="Dark"><img class="displayer-type-icon" src="../assets/type/dark.png"> Dark</option>-->
-<!--          <option value="Iron"><img class="displayer-type-icon" src="../assets/type/iron.png"> Iron</option>-->
-<!--          <option value="Dragon"><img class="displayer-type-icon" src="../assets/type/dragon.png"> Dragon</option>-->
-<!--          <option value="Normal"><img class="displayer-type-icon" src="../assets/type/normal.png"> Normal</option>-->
-<!--          <option value="Trainer"><img class="displayer-type-icon" src="../assets/type/normal.png"> Trainer</option>-->
-<!--          <option value="Energy"><img class="displayer-type-icon" src="../assets/type/normal.png"> Energy</option>-->
-<!--        </select>-->
       </div>
       <button type="button" class="btn btn-primary btn-sm is-owned">Not Owned</button>
     </div>
-    <div class="row justify-content-center">
-<!--      <v-container>-->
-<!--        <v-row>-->
-<!--          <v-col-->
-<!--              v-for="index in numbers"-->
-<!--              :key="index"-->
-<!--              :cols="(12/5)"-->
-<!--              class="mb-3"-->
-<!--          >-->
-<!--            <CardBox :number="index" />-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--      </v-container>-->
-<!--      <v-row>-->
-      <div  class="col-sm-6 col-md-4 col-lg-2 mb-3" v-for="index in numbers" :key="index">
-        <CardBox :number=index></CardBox>
+    <div v-if="globalDatas.ext" class="row justify-content-center">
+      <div class="col-sm-6 col-md-4 col-lg-2 mb-3" v-for="index in globalDatas.ext.NUMBER_CARD" :key="index">
+        <CardBox :number=index :globalDatas="globalDatas"></CardBox>
       </div>
-<!--      </v-row>-->
-<!--      <div v-for="index in 5" :key="index" class="five">-->
-<!--        <div v-for="index2 in 1+((numbers-(numbers%5))/5)" :key="index2" class="three">-->
-<!--          <CardBox v-if="checker(index+(index2-1)*5, numbers)" :number="index+(index2-1)*5"></CardBox>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable vue/no-mutating-props */
 import CardBox from "@/components/CardBox.vue";
+import CardDataService from "@/services/CardDataService";
 
 export default {
   name: "Displayer-Component",
   components: {CardBox},
   props: {
     numbers: Number,
+    globalDatas: Object
   },
   data () {
     return {
-      typeName: "Type"
+      typeName: "Type",
+      owned: true
     }
   },
   methods: {
-    checker(i, j) {
-      return i <= j;
+    getCardByNbExt(ext, nb) {
+      CardDataService.getCard({cardNum: nb, extensionId: ext}).then(resp => {
+        return resp.data;
+      }).catch(err => {
+        console.log(err.message);
+      })
     }
+  },
+  beforeMount() {
+
   }
 }
 </script>

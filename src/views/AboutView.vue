@@ -1,7 +1,7 @@
 <template>
   <div class="co container">
-    <MenuComponent index-active=4></MenuComponent>
-    <DisplayerComponent :numbers=230></DisplayerComponent>
+    <MenuComponent index-active=4 :globalDatas="globalDatas"></MenuComponent>
+    <DisplayerComponent :numbers=230 :globalDatas="globalDatas"></DisplayerComponent>
     <div >
       <br>
           <h1 class="header_type">The Team Project</h1>
@@ -25,7 +25,10 @@ import MenuComponent from "@/components/Menu.vue";
 
 export default {
   name: "CollectionView",
-  components: {MenuComponent}
+  components: {MenuComponent},
+  props: {
+    globalDatas: Object
+  }
 }
 </script>
 <style scoped>

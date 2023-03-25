@@ -1,8 +1,18 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <router-view/>
+  <router-view :globalDatas="globalDatas"/>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      globalDatas: {}
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

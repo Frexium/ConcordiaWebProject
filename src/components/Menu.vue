@@ -7,9 +7,10 @@
 <!--          <img class="menu-wheel-img" src="../assets/gear-wheel.png">-->
         </div>
         <div class="menu-profile-footer">
-          <h5 class="menu-profile-nickname">nkinesis</h5>
-          <img class="menu-profile-flag" src="../assets/drapeau-france.png">
-          <h5 class="menu-profile-id">#1</h5>
+          <h5 class="menu-profile-nickname">{{globalDatas.user ? globalDatas.user.USERNAME : "Unknown"}}</h5>
+          <h5 class="menu-profile-id">#{{globalDatas.user ? globalDatas.user.TAG : "****"}}</h5>
+          <img class="menu-profile-flag" v-if="!isFrenchFlag" src="../assets/drapeauAnglais.png" @click="toggleFlag">
+          <img class="menu-profile-flag" v-else src="../assets/drapeauFrance.png" @click="toggleFlag">
         </div>
       </div>
     </div>
@@ -29,13 +30,15 @@
           <router-link v-else class="nav-link" to="/extensions">Collections</router-link>
         </li>
         <li class="nav-item">
-          <router-link v-if="indexActive == 3" class="nav-link active" to="/network">Network</router-link>
-          <router-link v-else class="nav-link" to="/network">Network</router-link>
-        </li>
-        <li class="nav-item">
           <router-link v-if="indexActive == 4" class="nav-link active" to="/about">About Us</router-link>
           <router-link v-else class="nav-link" to="/about">About Us</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+<!--        <li class="nav-item">-->
+<!--          <button class="nav-link" @click="req()">Send Request</button>-->
+<!--        </li>-->
       </ul>
     </div>
   </div>
@@ -43,12 +46,65 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-mutating-props */
+
+import ExtensionDataService from "@/services/ExtensionDataService";
+import PosseseDataService from "@/services/PosseseDataService";
+
 export default {
   name: 'Menu-Component',
   props: {
     indexActive: Number,
+    globalDatas: Object
+  },
+  data(){
+  },
+  methods: {
+    req() {
+      ExtensionDataService.getExtension({extensionId: 1}).then(resp => {
+        this.globalDatas.ext = resp.data.Exten
+        console.log(this.globalDatas.ext)
+        console.log("Test: " + this.globalDatas.ext.NUMBER_CARD)
+      }).catch(err => {
+        console.log(err.message);
+      })
+      PosseseDataService.remove({cardId: 200, userId: this.globalDatas.user.ID_USER}).then(resp => {
+        console.log("DONE " + resp.data)
+      }).catch(err => {
+        console.log(err.message);
+      })
+/*
+      CardDataService.getCard({cardNum: 125, extensionId: 1}).then(resp => {
+        var card = resp.data
+        console.log(card)
+        console.log("DONE CARD")
+        PosseseDataService.add({cardId: card.ID_CARD, userId: this.globalDatas.user.ID_USER}).then(resp => {
+          console.log("DONE " + resp.data)
+        }).catch(err => {
+          console.log(err.message);
+        })
+
+      })
+*/
+    /*PosseseDataService.getCollection({userId: this.globalDatas.user.ID_USER, extensionId: 1}).then(resp => {
+      console.log("1: " + resp.data.cards);
+      console.log('2: ' + resp.data.ids);
+    }).catch(err => {
+      console.log(err.message);
+    })*/
+/*
+      CardDataService.getCollection({extensionId: 1}).then(resp => {
+      }).catch(err => {
+        console.log(err.message);
+      })
+*/
+    },
+    toggleFlag() {
+      this.isFrenchFlag = !this.isFrenchFlag;
+    }
   },
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -94,6 +150,7 @@ export default {
   margin-left: 5%;
   color: white;
   align-items: center;
+  justify-content: space-between;
 }
 .menu-profile-flag {
   width: 15%;

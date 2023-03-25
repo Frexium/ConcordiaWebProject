@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import CollectionView from "@/views/CollectionView.vue";
 import ExtensionsView from "@/views/ExtensionsView.vue";
 import FriendsView from "@/views/FriendsView.vue";
+import RegisterView from "@/views/RegisterView.vue";
+import LoginView from "@/views/LoginView.vue";
 
 const routes = [
   {
@@ -41,6 +43,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: FriendsView
+  },
+  {
+    path: '/register',
+    name: 'register',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: RegisterView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: LoginView
   }
 ]
 
