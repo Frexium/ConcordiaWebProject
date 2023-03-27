@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable vue/no-mutating-props,no-unused-vars */
 import UserDataService from "@/services/UserDataService";
 //import globalDatas from "../../globalDatas";
 import router from "@/router";
@@ -33,27 +34,31 @@ export default {
         password: ''
       },
       errorOccurs: false,
-      errorMessage: ''
+      errorMessage: '',
     }
   },
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   },
   methods: {
-    login () {
-      var eemail = document.getElementById("email");
+    async login () {
+      let eemail = document.getElementById("email");
       this.userLog.email = eemail.value;
-      var epassword = document.getElementById("password");
+      let epassword = document.getElementById("password");
       this.userLog.password = epassword.value;
-      UserDataService.postLogin(this.userLog).then(response => {
+      try {
+        const response = await UserDataService.postLogin(this.userLog)
+        //then
         this.errorOccurs = false
         this.errorMessage = ''
-        console.log(response.data.user);
-        // eslint-disable-next-line vue/no-mutating-props
-        this.globalDatas.user = response.data.user;
-        console.log(response.data.user === this.globalDatas.user);
-        router.push({ path: '/' })
-      }).catch(error => {
+        const gd = {
+          ...this.globalDatas,
+          user: response.data.user
+        }
+        this.setter(gd)
+        await router.push({path: '/'})
+      } catch (error) {
         if (error.response && error.response.data) {
           this.errorMessage = error.response.data.message
         } else {
@@ -61,7 +66,7 @@ export default {
         }
         this.errorOccurs = true;
         this.$forceUpdate;
-      })
+      }
     }
   }
 }

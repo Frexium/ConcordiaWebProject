@@ -1,5 +1,6 @@
 <template>
-  <div v-if="getData.ids !== null && getData.ids !== undefined && getData.ids.includes(number)" class="card-container">
+  <div v-if="globalDatas.user">
+  <div v-if="globalDatas.ids !== null && globalDatas.ids !== undefined && globalDatas.ids.includes(number)" class="card-container">
     <img  class="card-img" :src="require('../assets/' + globalDatas.ext.NAME+ '/' + number + '.jpg')">
     <div class="checkbox-container">
 <!--      <input type="checkbox" name="normal" @click="checkboxClickedNormal()">-->
@@ -15,6 +16,10 @@
       <button @click="checkboxClickedAdd()" type="button" class="btn btn-primary">Add</button>
     </div>
   </div>
+  </div>
+  <div v-else>
+    <img  class="card-img" :src="require('../assets/' + globalDatas.ext.NAME+ '/' + number + '.jpg')">
+  </div>
 </template>
 
 <script>
@@ -27,58 +32,61 @@ export default {
   props: {
     number: Number,
     extid: Number,
-    globalDatas: null,
+    globalDatas: Object,
+    setter: Function,
   },
   data() {
     return {
-      localGlobalDatas: this.globalDatas
+      localGlobalDatas: this.globalDatas,
     }
   },
   methods: {
-    checkboxClickedAdd() {
-      CardDataService.getCard({cardNum: this.number, extensionId: this.globalDatas.ext.ID_EXTENSION}).then(resp => {
+    async checkboxClickedAdd() {
+        const resp = await CardDataService.getCard({cardNum: this.number, extensionId: this.getData.ext.ID_EXTENSION})
         var card = resp.data
-        console.log(card.ID_CARD)
-        this.globalDatas.cards.push(card)
-        this.globalDatas.ids.push(card.CARD_NUM)
-        PosseseDataService.add({cardId: card.ID_CARD, userId: this.globalDatas.user.ID_USER}).then(resp => {
-          console.log("DONE " + resp.data)
-        }).catch(err => {
-          console.log(err.message);
-        })
-      })
-      /* PosseseDataService.getCollection({userId: this.globalDatas.user.ID_USER, extensionId: this.globalDatas.ext.ID_EXTENSION}).then(resp => {
-        this.globalDatas.cards = resp.data.cards
-        this.globalDatas.ids = resp.data.ids
-      }).catch(err => {
-        console.log(err.message);
-      }) */
+
+        const req = await PosseseDataService.add({cardId: card.ID_CARD, userId: this.getData.user.ID_USER})
+
+      const gd = {
+        ...this.globalDatas,
+        cards: [...this.globalDatas.cards],
+        ids: [...this.globalDatas.ids],
+        c: []
+      }
+      gd.cards.push(card)
+      gd.ids.push(card.CARD_NUM)
+      gd.c = Array.from({length: gd.ext.NUMBER_CARD}, (_, i) => i + 1).filter( ( el ) => !gd.ids.includes(el) )
+      this.setter(gd)
+      this.$forceUpdate
+      this.$emit("refresh")
     },
-    checkboxClickedRemove() {
-      CardDataService.getCard({cardNum: this.number, extensionId: this.globalDatas.ext.ID_EXTENSION}).then(resp => {
-        var card = resp.data
-        let index = this.globalDatas.cards.indexOf(card);
-        if (index !== -1) {
-          this.globalDatas.cards.splice(index, 1);
-        }
+    async checkboxClickedRemove() {
+      const resp = await CardDataService.getCard({cardNum: this.number, extensionId: this.globalDatas.ext.ID_EXTENSION})
 
-        index = this.globalDatas.ids.indexOf(card.CARD_NUM);
-        if (index !== -1) {
-          this.globalDatas.ids.splice(index, 1);
-        }
+      var card = resp.data
+      const gd = {
+        ...this.globalDatas,
+        cards: [...this.globalDatas.cards],
+        ids: [...this.globalDatas.ids],
+        c: []
+      }
+      let index = this.globalDatas.cards.indexOf(card);
+      if (index !== -1) {
+        gd.cards.splice(index, 1);
+      }
 
-        PosseseDataService.remove({cardId: card.ID_CARD, userId: this.globalDatas.user.ID_USER}).then(resp => {
-        }).catch(err => {
-          console.log(err.message);
-        })
+      index = this.globalDatas.ids.indexOf(card.CARD_NUM);
+      if (index !== -1) {
+        gd.ids.splice(index, 1);
+      }
 
-      })
-      /* PosseseDataService.getCollection({userId: this.globalDatas.user.ID_USER, extensionId: this.globalDatas.ext.ID_EXTENSION}).then(resp => {
-        this.globalDatas.cards = resp.data.cards
-        this.globalDatas.ids = resp.data.ids
-      }).catch(err => {
-        console.log(err.message);
-      }) */
+      const req = await PosseseDataService.remove({cardId: card.ID_CARD, userId: this.globalDatas.user.ID_USER})
+
+
+      gd.c = Array.from({length: this.globalDatas.ext.NUMBER_CARD}, (_, i) => i + 1).filter( ( el ) => !gd.ids.includes( el ) )
+      this.setter(gd)
+      this.$forceUpdate
+      this.$emit("refresh")
     }
   },
   computed: {
@@ -102,8 +110,7 @@ export default {
   justify-content: space-around;
   margin-top: 5%;
 }
-.card-img {
-}
+
 .card-img-bg {
   opacity: 0.4;
 }

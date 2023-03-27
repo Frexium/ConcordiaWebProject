@@ -1,6 +1,6 @@
 <template>
   <div class="register-container">
-  <RegisterComponent class="register-component" :globalDatas="globalDatas"></RegisterComponent>
+  <RegisterComponent :setter="setter" class="register-component" :globalDatas="globalDatas"></RegisterComponent>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   name: "RegisterView",
   components: {RegisterComponent},
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   }
 }
 </script>

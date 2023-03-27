@@ -9,5 +9,9 @@ class CardDataService {
         return http.post('/cards/getcardbynumandid', data)
     }
 
+    filter (data) {
+        return http.post('/cards/getfiltered', data)
+    }
+
 }
 export default new CardDataService()

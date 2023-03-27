@@ -55,9 +55,8 @@ export default {
   name: 'Menu-Component',
   props: {
     indexActive: Number,
-    globalDatas: Object
-  },
-  data(){
+    globalDatas: Object,
+    setter: Function
   },
   methods: {
     req() {

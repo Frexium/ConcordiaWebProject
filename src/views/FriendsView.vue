@@ -1,8 +1,8 @@
 <template>
   <div class="co container">
-    <MenuComponent index-active=3 :globalDatas="globalDatas"></MenuComponent>
+    <MenuComponent :setter="setter" index-active=3 :globalDatas="globalDatas"></MenuComponent>
     <div  class="user-container col-sm-6 col-md-4 col-lg-2 mb-3">
-      <DisplayUser image="user_friend" alt="This is a profile picture" name="The Psy" twitter="ThePsy69" :globalDatas="globalDatas"></DisplayUser>
+      <DisplayUser :setter="setter" image="user_friend" alt="This is a profile picture" name="The Psy" twitter="ThePsy69" :globalDatas="globalDatas"></DisplayUser>
     </div>
   </div>
 </template>
@@ -15,7 +15,8 @@ export default {
   name: "FriendsView",
   components: {MenuComponent, DisplayUser},
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   }
 }
 </script>

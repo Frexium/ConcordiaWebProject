@@ -1,7 +1,7 @@
 <template>
   <div class="co container">
-    <MenuComponent index-active=4 :globalDatas="globalDatas"></MenuComponent>
-    <DisplayerComponent :numbers=230 :globalDatas="globalDatas"></DisplayerComponent>
+    <MenuComponent index-active=4 :setter="setter" :globalDatas="globalDatas"></MenuComponent>
+    <DisplayerComponent :setter="setter" :numbers=230 :globalDatas="globalDatas"></DisplayerComponent>
     <div >
       <br>
           <h1 class="header_type">The Team Project</h1>
@@ -27,7 +27,8 @@ export default {
   name: "CollectionView",
   components: {MenuComponent},
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="co container">
-    <MenuComponent index-active=2 :globalDatas="globalDatas"></MenuComponent>
-    <DisplayerComponent :numbers=230 :globalDatas="globalDatas"></DisplayerComponent>
+    <MenuComponent :setter="setter" index-active=2 :globalDatas="globalDatas"></MenuComponent>
+    <DisplayerComponent v-on:refresh="refresh" :setter="setter" :numbers=230 :globalDatas="globalDatas"></DisplayerComponent>
   </div>
 </template>
 
@@ -15,6 +15,12 @@ export default {
   components: {MenuComponent, DisplayerComponent},
   props: {
     globalDatas: Object,
+    setter: Function
+  },
+  methods: {
+    refresh() {
+      this.$forceUpdate
+    }
   }
 }
 </script>

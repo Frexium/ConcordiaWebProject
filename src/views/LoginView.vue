@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <LoginComponent class="login-component" :globalDatas="globalDatas"></LoginComponent>
+    <LoginComponent :setter="setter" class="login-component" :globalDatas="globalDatas"></LoginComponent>
   </div>
 </template>
 
@@ -12,6 +12,7 @@ export default {
   components: {LoginComponent},
   props: {
     globalDatas: Object,
+    setter: Function
   }
 }
 </script>

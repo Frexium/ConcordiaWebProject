@@ -40,14 +40,15 @@ export default {
       password: '',
       twitter: '',
       errorOccurs: false,
-      errorMessage: ''
+      errorMessage: '',
     }
   },
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   },
   methods: {
-    register() {
+    async register() {
       var userLog = {
         username: this.username,
         twitter: this.twitter,
@@ -56,15 +57,20 @@ export default {
         dark_mode: false,
         language : 0
       }
-      UserDataService.create({user: userLog}).then(response => {
+      try {
+        const response = await UserDataService.create({user: userLog})
         this.errorOccurs = false
         this.errorMessage = ''
         console.log(response);
         // eslint-disable-next-line vue/no-mutating-props
-        this.globalDatas.user = response.data;
+        const gd = {
+          ...this.globalDatas,
+          user: response.data
+        }
         console.log(response.data === this.globalDatas.user);
-        router.push({ path: '/' })
-      }).catch(error => {
+        this.setter(gd)
+        await router.push({path: '/'})
+      } catch (error) {
         if (error.response && error.response.data) {
           this.errorMessage = error.response.data.message
         } else {
@@ -72,7 +78,8 @@ export default {
         }
         this.errorOccurs = true;
         this.$forceUpdate;
-      })
+      }
+
     }
   }
 }

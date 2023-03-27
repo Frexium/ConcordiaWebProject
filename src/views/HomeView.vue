@@ -1,6 +1,6 @@
 <template>
   <div class="co container">
-    <MenuComponent index-active=1 :globalDatas="globalDatas"></MenuComponent>
+    <MenuComponent :setter="setter" index-active=1 :globalDatas="globalDatas"></MenuComponent>
     <div class="home-right">
       <div class="top">
         <div class="hype">
@@ -119,7 +119,8 @@ export default {
   name: 'HomeView',
   components: {MenuComponent},
   props: {
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   },
   data () {
     return {

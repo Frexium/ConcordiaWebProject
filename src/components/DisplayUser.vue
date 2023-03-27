@@ -17,7 +17,8 @@ export default {
     alt: String,
     name: String,
     twitter: String,
-    globalDatas: Object
+    globalDatas: Object,
+    setter: Function
   },
 }
 </script>
